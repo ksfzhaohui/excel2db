@@ -1,0 +1,35 @@
+header
+{
+	int records 记录数量; 
+	int fields 字段数量; 
+	int namebuflength 名称buff的长度;
+	int typebuflength 类型buff的长度;
+	int databuflength 数据buff的长度;
+}
+
+columnName
+{
+	for(){
+		int len;
+		byte[] name;
+	}
+}
+
+columnType
+{
+	for(){
+		byte type;
+	}
+}
+
+data
+{
+	for(){
+		if(type==int || type==float || type==long){
+			byte[] value;
+		}else if(type==string){
+			int len;
+		    byte[] value;
+		}
+	}
+}
