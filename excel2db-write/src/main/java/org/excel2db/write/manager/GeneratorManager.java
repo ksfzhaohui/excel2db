@@ -1,4 +1,4 @@
-package org.excel2db.write;
+package org.excel2db.write.manager;
 
 import java.util.List;
 import java.util.Map;
@@ -9,13 +9,20 @@ import org.excel2db.write.genClass.Config;
 import org.excel2db.write.genClass.GeneratorType;
 import org.excel2db.write.genClass.IGenerator;
 import org.excel2db.write.genClass.SheetInfo;
+import org.excel2db.write.util.TypeEnum;
 
+/**
+ * 生成bean类
+ * 
+ * @author zhaohui
+ * 
+ */
 public class GeneratorManager {
 
 	private final static Logger logger = Logger.getLogger(DBManager.class);
 
 	private static final String NAME_ENDFIX = "Data";
-	
+
 	private Config config;
 	private Map<String, List<String>> columnNameMap;
 	private Map<String, List<TypeEnum>> columnTypeMap;
@@ -34,7 +41,8 @@ public class GeneratorManager {
 				List<String> columnNames = columnNameMap.get(key);
 				List<TypeEnum> typeEnums = columnTypeMap.get(key);
 
-				SheetInfo info = new SheetInfo(key+NAME_ENDFIX, columnNames, typeEnums);
+				SheetInfo info = new SheetInfo(key + NAME_ENDFIX, columnNames,
+						typeEnums);
 				IGenerator generator = GeneratorType.getGenerator(config
 						.getLanguage());
 				generator.generator(info, config);

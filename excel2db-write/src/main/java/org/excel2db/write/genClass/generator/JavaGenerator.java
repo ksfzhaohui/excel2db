@@ -2,8 +2,8 @@ package org.excel2db.write.genClass.generator;
 
 import java.util.List;
 
-import org.excel2db.write.TypeEnum;
 import org.excel2db.write.genClass.AbstractGenerator;
+import org.excel2db.write.util.TypeEnum;
 
 public class JavaGenerator extends AbstractGenerator {
 

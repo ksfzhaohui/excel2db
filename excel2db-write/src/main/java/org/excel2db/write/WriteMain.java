@@ -5,7 +5,11 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.excel2db.write.genClass.Config;
-import org.excel2db.write.genClass.EndfixEnum;
+import org.excel2db.write.manager.DBManager;
+import org.excel2db.write.manager.ExcelManager;
+import org.excel2db.write.manager.GeneratorManager;
+import org.excel2db.write.util.EndfixEnum;
+import org.excel2db.write.util.FileUtil;
 
 public class WriteMain {
 	private final static Logger logger = Logger.getLogger(WriteMain.class);

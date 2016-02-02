@@ -1,4 +1,4 @@
-package org.excel2db.write;
+package org.excel2db.write.manager;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -11,7 +11,14 @@ import jxl.Sheet;
 import jxl.Workbook;
 
 import org.apache.log4j.Logger;
+import org.excel2db.write.util.TypeEnum;
 
+/**
+ * 读取excel
+ * 
+ * @author zhaohui
+ * 
+ */
 public class ExcelManager {
 
 	private final static Logger logger = Logger.getLogger(ExcelManager.class);

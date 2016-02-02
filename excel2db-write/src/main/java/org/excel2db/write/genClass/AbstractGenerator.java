@@ -5,6 +5,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import org.excel2db.write.util.EndfixEnum;
+
 public abstract class AbstractGenerator implements IGenerator {
 
 	protected SheetInfo info;

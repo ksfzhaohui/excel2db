@@ -1,4 +1,4 @@
-package org.excel2db.write;
+package org.excel2db.write.util;
 
 import java.io.File;
 import java.util.ArrayList;

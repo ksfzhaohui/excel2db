@@ -1,6 +1,6 @@
 package org.excel2db.write.genClass.generator;
 
-import org.excel2db.write.TypeEnum;
+import org.excel2db.write.util.TypeEnum;
 
 public class JavaSign {
 

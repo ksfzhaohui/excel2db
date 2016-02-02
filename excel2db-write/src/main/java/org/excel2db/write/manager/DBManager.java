@@ -1,4 +1,4 @@
-package org.excel2db.write;
+package org.excel2db.write.manager;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,8 +11,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.excel2db.write.util.TypeEnum;
 
 /**
+ * 生成ndb文件管理
+ * 
  * @author ksfzhaohui
  * 
  */

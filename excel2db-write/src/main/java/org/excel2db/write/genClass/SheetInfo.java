@@ -2,7 +2,7 @@ package org.excel2db.write.genClass;
 
 import java.util.List;
 
-import org.excel2db.write.TypeEnum;
+import org.excel2db.write.util.TypeEnum;
 
 public class SheetInfo {
 

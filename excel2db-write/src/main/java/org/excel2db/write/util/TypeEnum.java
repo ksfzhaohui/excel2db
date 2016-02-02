@@ -1,4 +1,4 @@
-package org.excel2db.write;
+package org.excel2db.write.util;
 
 public enum TypeEnum {
 
