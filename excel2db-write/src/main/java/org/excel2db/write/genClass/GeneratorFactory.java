@@ -6,7 +6,7 @@ import java.util.Map;
 import org.excel2db.write.genClass.generator.CSharpGenerator;
 import org.excel2db.write.genClass.generator.JavaGenerator;
 
-public class GeneratorType {
+public class GeneratorFactory {
 
 	private static Map<String, IGenerator> generatorMap = new HashMap<String, IGenerator>();
 

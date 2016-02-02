@@ -21,8 +21,4 @@ public class FileUtil {
 		}
 		return fileList;
 	}
-
-	public static void main(String[] args) {
-		System.out.println(getData("D:\\"));
-	}
 }

@@ -4,7 +4,15 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import org.excel2db.read.util.BeanUtil;
 
+/**
+ * ndb管理抽象类
+ * 
+ * @author zhaohui
+ * 
+ * @param <T>
+ */
 public abstract class NdbDataManager<T> {
 
 	private DBFile<T> dbFile;

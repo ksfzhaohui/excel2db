@@ -5,6 +5,12 @@ import java.util.List;
 import org.excel2db.write.genClass.AbstractGenerator;
 import org.excel2db.write.util.TypeEnum;
 
+/**
+ * csharp类生成器
+ * 
+ * @author zhaohui
+ * 
+ */
 public class CSharpGenerator extends AbstractGenerator {
 
 	@Override
@@ -14,10 +20,10 @@ public class CSharpGenerator extends AbstractGenerator {
 		out.println(CSharpSign.using[1]);
 		out.println();
 
-		out.println(CSharpSign.NameSpace+config.getPackageRoot());
+		out.println(CSharpSign.NameSpace + config.getPackageRoot());
 		out.println("{");
-		
-		out.println(CSharpSign.Tab[1] +CSharpSign.Public + CSharpSign.Class
+
+		out.println(CSharpSign.Tab[1] + CSharpSign.Public + CSharpSign.Class
 				+ toFirstUpperCase(info.getName()) + " {");
 		out.println();
 
@@ -37,8 +43,10 @@ public class CSharpGenerator extends AbstractGenerator {
 			String columnName = columnNames.get(i);
 
 			out.println(CSharpSign.Tab[2] + CSharpSign.Public
-					+ CSharpSign.fullType(type) + toGetMethod(columnName) + " {");
-			out.println(CSharpSign.Tab[3] + CSharpSign.Return + columnName + ";");
+					+ CSharpSign.fullType(type) + toGetMethod(columnName)
+					+ " {");
+			out.println(CSharpSign.Tab[3] + CSharpSign.Return + columnName
+					+ ";");
 			out.println(CSharpSign.Tab[2] + "}");
 			out.println();
 
@@ -52,7 +60,7 @@ public class CSharpGenerator extends AbstractGenerator {
 		out.println(CSharpSign.Tab[1] + "}");
 		out.println("}");
 	}
-	
+
 	private String toGetMethod(String columnName) {
 		return "Get" + toFirstUpperCase(columnName) + "()";
 	}

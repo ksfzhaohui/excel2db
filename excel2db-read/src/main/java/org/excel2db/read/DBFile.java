@@ -11,7 +11,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.excel2db.read.util.TypeEnum;
 
+/**
+ * ndb文件的抽象类
+ * 
+ * @author zhaohui
+ * 
+ * @param <T>
+ */
 public class DBFile<T> {
 	private final static Logger logger = Logger.getLogger(DBFile.class);
 

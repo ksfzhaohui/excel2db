@@ -1,5 +1,11 @@
 package org.excel2db.write.genClass;
 
+/**
+ * 初始化配置信息
+ * 
+ * @author zhaohui
+ * 
+ */
 public class Config {
 
 	private String language;// 语言

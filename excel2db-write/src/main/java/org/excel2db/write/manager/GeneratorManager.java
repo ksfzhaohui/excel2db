@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.excel2db.write.genClass.Config;
-import org.excel2db.write.genClass.GeneratorType;
+import org.excel2db.write.genClass.GeneratorFactory;
 import org.excel2db.write.genClass.IGenerator;
 import org.excel2db.write.genClass.SheetInfo;
 import org.excel2db.write.util.TypeEnum;
@@ -43,7 +43,7 @@ public class GeneratorManager {
 
 				SheetInfo info = new SheetInfo(key + NAME_ENDFIX, columnNames,
 						typeEnums);
-				IGenerator generator = GeneratorType.getGenerator(config
+				IGenerator generator = GeneratorFactory.getGenerator(config
 						.getLanguage());
 				generator.generator(info, config);
 			}
