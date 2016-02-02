@@ -155,11 +155,11 @@ public class DBManager {
 			for (int i = 0; i < data.size(); i++) {
 				TypeEnum type = typeEnums.get(i);
 				if (type == TypeEnum.INT) {
-					buffer.putInt(Integer.valueOf(data.get(i)));
+					buffer.putInt(Integer.valueOf(getInitValue(data.get(i))));
 				} else if (type == TypeEnum.FLOAT) {
-					buffer.putFloat(Float.valueOf(data.get(i)));
+					buffer.putFloat(Float.valueOf(getInitValue(data.get(i))));
 				} else if (type == TypeEnum.LONG) {
-					buffer.putLong(Long.valueOf(data.get(i)));
+					buffer.putLong(Long.valueOf(getInitValue(data.get(i))));
 				} else if (type == TypeEnum.STRING) {
 					buffer.put(stringBuff(data.get(i)));
 				} else {
@@ -190,5 +190,18 @@ public class DBManager {
 		buffer.put(bytes);
 		buffer.flip();
 		return buffer;
+	}
+
+	/**
+	 * 获取非string类型的初始值
+	 * 
+	 * @param value
+	 * @return
+	 */
+	private String getInitValue(String value) {
+		if (value.equals("")) {
+			return "0";
+		}
+		return value;
 	}
 }
