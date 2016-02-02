@@ -5,9 +5,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
+import org.apache.log4j.Logger;
 import org.excel2db.write.util.EndfixEnum;
 
 public abstract class AbstractGenerator implements IGenerator {
+
+	private final static Logger logger = Logger
+			.getLogger(AbstractGenerator.class);
 
 	protected SheetInfo info;
 	protected Config config;
@@ -39,7 +43,7 @@ public abstract class AbstractGenerator implements IGenerator {
 			out = new PrintStream(new FileOutputStream(beanFile));
 			generatorBean();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("generator bean error", e);
 			throw new RuntimeException(e);
 		} finally {
 			if (out != null) {

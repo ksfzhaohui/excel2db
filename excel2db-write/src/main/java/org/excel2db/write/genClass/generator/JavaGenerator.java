@@ -5,6 +5,12 @@ import java.util.List;
 import org.excel2db.write.genClass.AbstractGenerator;
 import org.excel2db.write.util.TypeEnum;
 
+/**
+ * java类生成器
+ * 
+ * @author zhaohui
+ * 
+ */
 public class JavaGenerator extends AbstractGenerator {
 
 	@Override
