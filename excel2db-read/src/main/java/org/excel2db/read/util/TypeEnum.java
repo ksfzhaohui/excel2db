@@ -1,4 +1,4 @@
-package org.excel2db.read;
+package org.excel2db.read.util;
 
 public enum TypeEnum {
 

@@ -1,4 +1,4 @@
-package org.excel2db.read;
+package org.excel2db.read.util;
 
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
