@@ -15,6 +15,9 @@ pom.xml打包，将target中的zip包拷贝出来，根据附录1中的参数说
 excel2db-read
 提供java版本的解析ndb文件，并将结果映射到bean中
 
+excel2db-browse
+提供查看ndb文件的客户端，将ndb文件拖入到窗口中查看
+
 附录
 1.bat中参数说明：
 language     指定语言支持java,csharp
