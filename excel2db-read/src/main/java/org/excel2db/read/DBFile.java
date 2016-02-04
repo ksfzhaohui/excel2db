@@ -20,7 +20,7 @@ import org.excel2db.read.util.TypeEnum;
  * 
  * @param <T>
  */
-public class DBFile<T> {
+public class DBFile {
 	private final static Logger logger = Logger.getLogger(DBFile.class);
 
 	/** header的长度 **/
@@ -30,7 +30,6 @@ public class DBFile<T> {
 	private List<String> columnNames = new ArrayList<String>();
 	private List<TypeEnum> typeEnums = new ArrayList<TypeEnum>();
 	private List<Map<String, Object>> dataMap = new ArrayList<Map<String, Object>>();
-	private List<T> beanList = new ArrayList<T>();
 
 	public void init(String filePath) {
 		FileChannel fc = null;
@@ -148,8 +147,8 @@ public class DBFile<T> {
 		return dataMap;
 	}
 
-	public List<T> getBeanList() {
-		return beanList;
+	public List<String> getColumnNames() {
+		return columnNames;
 	}
 
 }

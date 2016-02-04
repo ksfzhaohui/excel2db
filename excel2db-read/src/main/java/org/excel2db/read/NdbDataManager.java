@@ -15,18 +15,18 @@ import org.excel2db.read.util.BeanUtil;
  */
 public abstract class NdbDataManager<T> {
 
-	private DBFile<T> dbFile;
+	private DBFile dbFile;
 	private String ndbFilePath;
+	private List<T> beanList;
 
 	public abstract String getNdbName();
 
 	public abstract Class<T> clazz();
 
 	public void init() {
-		dbFile = new DBFile<T>();
+		dbFile = new DBFile();
 		dbFile.init(ndbFilePath + File.separator + getNdbName() + ".ndb");
 
-		List<T> beanList = dbFile.getBeanList();
 		List<Map<String, Object>> dataMap = dbFile.getDataMap();
 		for (Map<String, Object> map : dataMap) {
 			beanList.add(BeanUtil.reverse(map, clazz()));
@@ -34,7 +34,7 @@ public abstract class NdbDataManager<T> {
 	}
 
 	public List<T> getBeanList() {
-		return dbFile.getBeanList();
+		return beanList;
 	}
 
 	public String getNdbFilePath() {
