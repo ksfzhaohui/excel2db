@@ -1,0 +1,6 @@
+2016-02-04 14:10:29 [main] 136::: INFO  org.excel2db.read.DBFile - headerInfo:[recordSize=604,fieldSize=4,namebuflength=36,typebuflength=4,databuflength=17352]
+2016-02-04 14:10:29 [main] 116::: INFO  org.excel2db.read.DBFile - [name1, name2, name3, name4]
+2016-02-04 14:10:29 [main] 100::: INFO  org.excel2db.read.DBFile - [INT, LONG, FLOAT, STRING]
+2016-02-04 14:11:11 [main] 136::: INFO  org.excel2db.read.DBFile - headerInfo:[recordSize=604,fieldSize=4,namebuflength=36,typebuflength=4,databuflength=17352]
+2016-02-04 14:11:11 [main] 116::: INFO  org.excel2db.read.DBFile - [name1, name2, name3, name4]
+2016-02-04 14:11:11 [main] 100::: INFO  org.excel2db.read.DBFile - [INT, LONG, FLOAT, STRING]

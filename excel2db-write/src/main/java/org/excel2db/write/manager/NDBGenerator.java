@@ -19,12 +19,14 @@ import org.excel2db.write.util.TypeEnum;
  * @author ksfzhaohui
  * 
  */
-public class DBManager {
+public class NDBGenerator {
 
-	private final static Logger logger = Logger.getLogger(DBManager.class);
+	private final static Logger logger = Logger.getLogger(NDBGenerator.class);
 
 	/** 生成的二进制文件后缀 **/
 	private static final String FILE_SUFFIX = ".ndb";
+	/** 字符串编码格式 **/
+	private static final String STRING_ENCODING = "UTF-8";
 
 	/** header的长度 **/
 	private static final int HEADER_LENGTH = 5 * 4;
@@ -33,7 +35,7 @@ public class DBManager {
 	private Map<String, List<TypeEnum>> columnTypeMap;
 	private Map<String, List<List<String>>> dataMap;
 
-	public DBManager(ExcelManager excelManager) {
+	public NDBGenerator(ExcelParse excelManager) {
 		columnNameMap = excelManager.getColumnNameMap();
 		columnTypeMap = excelManager.getColumnTypeMap();
 		dataMap = excelManager.getDataMap();
@@ -136,39 +138,21 @@ public class DBManager {
 		return buffer;
 	}
 
+	/**
+	 * 获取数据buff
+	 * 
+	 * @param datas
+	 * @param typeEnums
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	private ByteBuffer getDataBuffer(List<List<String>> datas,
 			List<TypeEnum> typeEnums) throws UnsupportedEncodingException {
 		List<ByteBuffer> bufferList = new ArrayList<ByteBuffer>();
 		for (List<String> data : datas) {
-			int length = 0;
-			for (int i = 0; i < data.size(); i++) {
-				TypeEnum type = typeEnums.get(i);
-				if (type == TypeEnum.STRING) {
-					ByteBuffer buffer = stringBuff(data.get(i));
-					length += buffer.limit();
-				} else {
-					length += TypeEnum.size(type);
-				}
-			}
+			int length = getDataBuffSize(typeEnums, data);
 
-			ByteBuffer buffer = ByteBuffer.allocate(length);
-			for (int i = 0; i < data.size(); i++) {
-				TypeEnum type = typeEnums.get(i);
-				if (type == TypeEnum.INT) {
-					buffer.putInt(Integer.valueOf(getInitValue(data.get(i))));
-				} else if (type == TypeEnum.FLOAT) {
-					buffer.putFloat(Float.valueOf(getInitValue(data.get(i))));
-				} else if (type == TypeEnum.LONG) {
-					buffer.putLong(Long.valueOf(getInitValue(data.get(i))));
-				} else if (type == TypeEnum.STRING) {
-					buffer.put(stringBuff(data.get(i)));
-				} else {
-					throw new RuntimeException("error type:" + type
-							+ "support:int,float,long,string");
-				}
-			}
-
-			buffer.flip();
+			ByteBuffer buffer = getDataBuff(length, typeEnums, data);
 			bufferList.add(buffer);
 		}
 		int allLength = 0;
@@ -182,14 +166,79 @@ public class DBManager {
 		return allBuffer;
 	}
 
+	/**
+	 * 获取string的缓存区
+	 * 
+	 * @param str
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
 	private ByteBuffer stringBuff(String str)
 			throws UnsupportedEncodingException {
-		byte bytes[] = str.getBytes("UTF-8");
-		ByteBuffer buffer = ByteBuffer.allocate(bytes.length + 4);
+		ByteBuffer buffer = ByteBuffer.allocate(getStringBuffSize(str));
+		byte bytes[] = str.getBytes(STRING_ENCODING);
 		buffer.putInt(bytes.length);
 		buffer.put(bytes);
 		buffer.flip();
 		return buffer;
+	}
+
+	/**
+	 * 获取每一行的数据缓存大小
+	 * 
+	 * @param typeEnums
+	 * @param data
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	private int getDataBuffSize(List<TypeEnum> typeEnums, List<String> data)
+			throws UnsupportedEncodingException {
+		int length = 0;
+		for (int i = 0; i < data.size(); i++) {
+			TypeEnum type = typeEnums.get(i);
+			if (type == TypeEnum.STRING) {
+				length += getStringBuffSize(data.get(i));
+			} else {
+				length += TypeEnum.size(type);
+			}
+		}
+		return length;
+	}
+
+	private ByteBuffer getDataBuff(int length, List<TypeEnum> typeEnums,
+			List<String> data) throws UnsupportedEncodingException {
+		ByteBuffer buffer = ByteBuffer.allocate(length);
+		for (int i = 0; i < data.size(); i++) {
+			TypeEnum type = typeEnums.get(i);
+			if (type == TypeEnum.INT) {
+				buffer.putInt(Integer.valueOf(getInitValue(data.get(i))));
+			} else if (type == TypeEnum.FLOAT) {
+				buffer.putFloat(Float.valueOf(getInitValue(data.get(i))));
+			} else if (type == TypeEnum.LONG) {
+				buffer.putLong(Long.valueOf(getInitValue(data.get(i))));
+			} else if (type == TypeEnum.STRING) {
+				buffer.put(stringBuff(data.get(i)));
+			} else {
+				throw new RuntimeException("error type:" + type
+						+ "support:int,float,long,string");
+			}
+		}
+
+		buffer.flip();
+		return buffer;
+	}
+
+	/**
+	 * 获取字符串写入缓存区的大小 byte[].Length + Int.size
+	 * 
+	 * @param str
+	 * @return
+	 * @throws UnsupportedEncodingException
+	 */
+	private int getStringBuffSize(String str)
+			throws UnsupportedEncodingException {
+		byte bytes[] = str.getBytes(STRING_ENCODING);
+		return bytes.length + TypeEnum.size(TypeEnum.INT);
 	}
 
 	/**

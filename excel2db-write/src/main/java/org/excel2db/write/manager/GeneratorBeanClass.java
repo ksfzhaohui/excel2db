@@ -17,9 +17,9 @@ import org.excel2db.write.util.TypeEnum;
  * @author zhaohui
  * 
  */
-public class GeneratorManager {
+public class GeneratorBeanClass {
 
-	private final static Logger logger = Logger.getLogger(DBManager.class);
+	private final static Logger logger = Logger.getLogger(NDBGenerator.class);
 
 	private static final String NAME_ENDFIX = "Data";
 
@@ -27,7 +27,7 @@ public class GeneratorManager {
 	private Map<String, List<String>> columnNameMap;
 	private Map<String, List<TypeEnum>> columnTypeMap;
 
-	public GeneratorManager(ExcelManager excelManager, Config config) {
+	public GeneratorBeanClass(ExcelParse excelManager, Config config) {
 		columnNameMap = excelManager.getColumnNameMap();
 		columnTypeMap = excelManager.getColumnTypeMap();
 		this.config = config;
