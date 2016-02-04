@@ -16,6 +16,14 @@
 	</dependencySets>
 
 	<fileSets>
+		<!-- 把项目的脚本文件目录（ src/main/scripts ）中的启动脚本文件，打包进zip文件的跟目录 -->
+		<fileSet>
+			<directory>scripts</directory>
+			<outputDirectory></outputDirectory>
+			<includes>
+				<include>*.bat</include>
+			</includes>
+		</fileSet>
 		<!-- 把项目自己编译出来的jar文件，打包进zip文件的根目录 -->
 		<fileSet>
 			<directory>${project.build.directory}</directory>
