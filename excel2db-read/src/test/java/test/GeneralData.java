@@ -1,6 +1,6 @@
 package test;
 
-public class CityData {
+public class GeneralData {
 
 	private int name1;
 	private long name2;
