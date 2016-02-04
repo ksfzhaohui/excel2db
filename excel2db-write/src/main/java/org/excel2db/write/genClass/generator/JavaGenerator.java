@@ -3,6 +3,7 @@ package org.excel2db.write.genClass.generator;
 import java.util.List;
 
 import org.excel2db.write.genClass.AbstractGenerator;
+import org.excel2db.write.genClass.sign.JavaSign;
 import org.excel2db.write.util.TypeEnum;
 
 /**
