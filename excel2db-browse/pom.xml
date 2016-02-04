@@ -27,7 +27,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>org.excel2db.browse.BrowseFrame</mainClass>
+							<mainClass>org.excel2db.browse.NDBBrowseFrame</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

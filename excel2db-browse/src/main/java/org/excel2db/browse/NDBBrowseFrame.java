@@ -13,14 +13,14 @@ import java.util.Map;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 import org.apache.log4j.Logger;
 import org.excel2db.read.DBFile;
 
-public class BrowseFrame extends JFrame {
+public class NDBBrowseFrame extends JFrame {
 
-	private final static Logger logger = Logger.getLogger(BrowseFrame.class);
-
+	private final static Logger logger = Logger.getLogger(NDBBrowseFrame.class);
 	private static final long serialVersionUID = 1L;
 
 	private static final int frame_width = 800;
@@ -28,7 +28,12 @@ public class BrowseFrame extends JFrame {
 	private JTable table;
 	private JScrollPane scrollPane;
 
-	public BrowseFrame() {
+	public NDBBrowseFrame() {
+		table = new JTable();
+		table.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		scrollPane = new JScrollPane(table);
+		this.add(scrollPane, BorderLayout.CENTER);
+
 		handlerDrag();
 		this.setTitle("NDB Browser");
 		this.setSize(frame_width, frame_height);
@@ -88,14 +93,11 @@ public class BrowseFrame extends JFrame {
 			tableVales[i] = tableValue;
 		}
 
-		table = new JTable(tableVales, columnNames);
-		scrollPane = new JScrollPane(table);
-		this.add(scrollPane, BorderLayout.CENTER);
-		this.setVisible(true);
+		table.setModel(new NDBTableModel(columnNames, tableVales));
 	}
 
 	public static void main(String[] args) {
-		new BrowseFrame();
+		new NDBBrowseFrame();
 	}
 
 }
