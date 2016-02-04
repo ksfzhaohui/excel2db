@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.excel2db.write.genClass.Config;
-import org.excel2db.write.manager.DBManager;
-import org.excel2db.write.manager.ExcelManager;
-import org.excel2db.write.manager.GeneratorManager;
+import org.excel2db.write.manager.NDBGenerator;
+import org.excel2db.write.manager.ExcelParse;
+import org.excel2db.write.manager.GeneratorBeanClass;
 import org.excel2db.write.util.EndfixEnum;
 import org.excel2db.write.util.FileUtil;
 
@@ -24,13 +24,13 @@ public class WriteMain {
 
 		for (String fileName : fileList) {
 			logger.info("process:" + fileName);
-			ExcelManager excel = new ExcelManager(excelPath + fileName);
+			ExcelParse excel = new ExcelParse(excelPath + fileName);
 			excel.readExcel();
 
-			DBManager db = new DBManager(excel);
+			NDBGenerator db = new NDBGenerator(excel);
 			db.writeDB(excelPath);
 
-			GeneratorManager generator = new GeneratorManager(excel, config);
+			GeneratorBeanClass generator = new GeneratorBeanClass(excel, config);
 			generator.generator();
 		}
 	}

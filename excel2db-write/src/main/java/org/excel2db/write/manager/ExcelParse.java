@@ -19,9 +19,9 @@ import org.excel2db.write.util.TypeEnum;
  * @author zhaohui
  * 
  */
-public class ExcelManager {
+public class ExcelParse {
 
-	private final static Logger logger = Logger.getLogger(ExcelManager.class);
+	private final static Logger logger = Logger.getLogger(ExcelParse.class);
 
 	/** 数据开始行 **/
 	private static int DATA_STAR_ROW = 5;
@@ -34,7 +34,7 @@ public class ExcelManager {
 	private Map<String, List<TypeEnum>> columnTypeMap = new HashMap<String, List<TypeEnum>>();
 	private Map<String, List<List<String>>> dataMap = new HashMap<String, List<List<String>>>();
 
-	public ExcelManager(String filePath) {
+	public ExcelParse(String filePath) {
 		this.filePath = filePath;
 	}
 
