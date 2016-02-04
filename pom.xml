@@ -28,8 +28,18 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.12</version>
+		</dependency>
+	</dependencies>
+
 	<modules>
 		<module>excel2db-write</module>
 		<module>excel2db-read</module>
+		<module>excel2db-browse</module>
 	</modules>
 </project>
