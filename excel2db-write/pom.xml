@@ -40,7 +40,7 @@
 				<version>2.4</version>
 				<configuration>
 					<descriptors>
-						<descriptor>src/main/resource/package.xml</descriptor>
+						<descriptor>src/main/resources/package.xml</descriptor>
 					</descriptors>
 				</configuration>
 				<executions>
