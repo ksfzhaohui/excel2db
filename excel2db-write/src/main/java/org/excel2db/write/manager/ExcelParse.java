@@ -77,8 +77,28 @@ public class ExcelParse {
 				List<List<String>> dataList = new ArrayList<List<String>>();
 				for (int i = DATA_STAR_ROW; i < rows; i++) {
 					List<String> list = new ArrayList<String>();
-					for (int column : columnList) {
-						list.add(sheet.getCell(column, i).getContents().trim());
+					for (int k = 0; k < columnList.size(); k++) {
+						int column = columnList.get(k);
+						TypeEnum typeEnum = typeList.get(k);
+
+						String content = sheet.getCell(column, i).getContents()
+								.trim();
+						String value = getInitValue(content);
+						try {
+							if (typeEnum == TypeEnum.INT) {
+								Integer.valueOf(value);
+							} else if (typeEnum == TypeEnum.FLOAT) {
+								Float.valueOf(value);
+							} else if (typeEnum == TypeEnum.LONG) {
+								Long.valueOf(value);
+							}
+						} catch (Exception e) {
+							throw new RuntimeException(
+									"numberFormatException:row=" + (i + 1)
+											+ ",column=" + (column + 1));
+						}
+
+						list.add(value);
 					}
 					dataList.add(list);
 				}
@@ -93,6 +113,19 @@ public class ExcelParse {
 				book.close();
 			}
 		}
+	}
+
+	/**
+	 * 获取非string类型的初始值
+	 * 
+	 * @param value
+	 * @return
+	 */
+	private String getInitValue(String value) {
+		if (value.equals("")) {
+			return "0";
+		}
+		return value;
 	}
 
 	public Map<String, List<String>> getColumnNameMap() {

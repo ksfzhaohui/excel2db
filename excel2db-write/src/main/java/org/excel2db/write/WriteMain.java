@@ -15,7 +15,7 @@ public class WriteMain {
 	private final static Logger logger = Logger.getLogger(WriteMain.class);
 
 	public static void main(String[] args) {
-		if (args == null) {
+		if (args == null || args.length == 0) {
 			args = new String[4];
 			args[0] = "java";
 			args[1] = "D:\\ndbtest";
