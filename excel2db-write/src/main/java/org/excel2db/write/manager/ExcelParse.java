@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 
@@ -25,6 +24,10 @@ public class ExcelParse {
 
 	/** 数据开始行 **/
 	private static int DATA_STAR_ROW = 5;
+	/** 类型的行 **/
+	private static int TYPE_ROW = 2;
+	/** 名字的行 **/
+	private static int NAME_ROW = 0;
 
 	/** excel文件路径 **/
 	private String filePath;
@@ -50,15 +53,34 @@ public class ExcelParse {
 			Sheet sheets[] = book.getSheets();
 			for (Sheet sheet : sheets) {
 				int rows = sheet.getRows();
-				Cell columnNames[] = sheet.getRow(0);
-				Cell columnTypes[] = sheet.getRow(2);
-				columnNameMap.put(sheet.getName(), getConentList(columnNames));
-				columnTypeMap.put(sheet.getName(), toType(columnTypes));
+				int columns = sheet.getColumns();
+
+				List<Integer> columnList = new ArrayList<Integer>();
+				List<TypeEnum> typeList = new ArrayList<TypeEnum>();
+				List<String> nameList = new ArrayList<String>();
+
+				for (int i = 0; i < columns; i++) {
+					String type = sheet.getCell(i, TYPE_ROW).getContents()
+							.trim();
+					TypeEnum typeEnum = TypeEnum.type(type);
+					if (typeEnum != null) {
+						typeList.add(typeEnum);
+						nameList.add(sheet.getCell(i, NAME_ROW).getContents()
+								.trim());
+						columnList.add(i);
+					}
+				}
+
+				columnNameMap.put(sheet.getName(), nameList);
+				columnTypeMap.put(sheet.getName(), typeList);
 
 				List<List<String>> dataList = new ArrayList<List<String>>();
 				for (int i = DATA_STAR_ROW; i < rows; i++) {
-					Cell columnData[] = sheet.getRow(i);
-					dataList.add(getConentList(columnData));
+					List<String> list = new ArrayList<String>();
+					for (int column : columnList) {
+						list.add(sheet.getCell(column, i).getContents().trim());
+					}
+					dataList.add(list);
 				}
 
 				dataMap.put(sheet.getName(), dataList);
@@ -71,36 +93,6 @@ public class ExcelParse {
 				book.close();
 			}
 		}
-	}
-
-	/**
-	 * 转换为设定的类型
-	 * 
-	 * @param cells
-	 * @return
-	 */
-	private List<TypeEnum> toType(Cell cells[]) {
-		List<String> contents = getConentList(cells);
-		List<TypeEnum> typeList = new ArrayList<TypeEnum>();
-		for (String type : contents) {
-			typeList.add(TypeEnum.type(type));
-		}
-		return typeList;
-	}
-
-	/**
-	 * 获取cell中的数据
-	 * 
-	 * @param cells
-	 * @return
-	 */
-	private List<String> getConentList(Cell cells[]) {
-		List<String> contents = new ArrayList<String>();
-		for (Cell cell : cells) {
-			contents.add(cell.getContents());
-		}
-		// logger.info(contents);
-		return contents;
 	}
 
 	public Map<String, List<String>> getColumnNameMap() {

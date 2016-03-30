@@ -35,8 +35,7 @@ public enum TypeEnum {
 		} else if (type.equalsIgnoreCase("string")) {
 			return STRING;
 		} else {
-			throw new RuntimeException("error type:" + type
-					+ " support:int,float,long,string");
+			return null;
 		}
 	}
 	

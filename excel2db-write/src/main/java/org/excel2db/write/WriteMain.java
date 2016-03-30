@@ -15,6 +15,14 @@ public class WriteMain {
 	private final static Logger logger = Logger.getLogger(WriteMain.class);
 
 	public static void main(String[] args) {
+		if (args == null) {
+			args = new String[4];
+			args[0] = "java";
+			args[1] = "D:\\ndbtest";
+			args[2] = "test";
+			args[3] = "D:\\ndbtest";
+		}
+
 		Config config = getConfig(args);
 		String excelPath = config.getExcelPath();
 		excelPath = excelPath + File.separator;
