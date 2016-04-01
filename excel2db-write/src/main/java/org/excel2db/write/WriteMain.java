@@ -5,10 +5,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.excel2db.write.genClass.Config;
-import org.excel2db.write.manager.NDBGenerator;
 import org.excel2db.write.manager.ExcelParse;
 import org.excel2db.write.manager.GeneratorBeanClass;
-import org.excel2db.write.util.EndfixEnum;
+import org.excel2db.write.manager.NDBGenerator;
 import org.excel2db.write.util.FileUtil;
 
 public class WriteMain {
@@ -48,24 +47,16 @@ public class WriteMain {
 			logger.info("no language param support:java,csharp");
 			System.exit(0);
 		}
-		String language = args[0];
-		EndfixEnum type = EndfixEnum.getType(language);
 		Config config = null;
-		switch (type) {
-		case JAVA:
-			if (args.length != 4) {
-				logger.info("error init param,param:language,beanRoot,packageRoot,excelPath");
-				System.exit(0);
-			}
-			break;
-		case CSHARP:
-			if (args.length != 4) {
-				logger.info("error init param,param:language,beanRoot,namespace,excelPath");
-				System.exit(0);
-			}
-			break;
+		if (args.length != 4 && args.length != 3) {
+			logger.info("error init param,param:language,beanRoot,namespace,excelPath");
+			System.exit(0);
 		}
-		config = new Config(args[0], args[1], args[2], args[3]);
+		if (args.length == 4) {
+			config = new Config(args[0], args[1], args[2], args[3]);
+		} else if (args.length == 3) {
+			config = new Config(args[0], args[1], "", args[2]);
+		}
 		return config;
 	}
 }

@@ -16,8 +16,11 @@ public class JavaGenerator extends AbstractGenerator {
 
 	@Override
 	public void generatorBean() {
-		out.println(JavaSign.Package + config.getPackageRoot() + ";");
-		out.println();
+		if (config.getPackageRoot() != null
+				&& !config.getPackageRoot().equals("")) {
+			out.println(JavaSign.Package + config.getPackageRoot() + ";");
+			out.println();
+		}
 
 		out.println(JavaSign.Public + JavaSign.Class
 				+ toFirstUpperCase(info.getName()) + " {");
