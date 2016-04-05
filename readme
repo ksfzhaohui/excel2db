@@ -26,4 +26,4 @@ packageRoot  指定bean的包路径
 excelPath    指定excel的存放路径
 
 2.test.xls  指定了excel的格式,由于jxl的缘故只支持excel2003
-第三行指定类型分别有:int,float,long,string
+第三行指定类型分别有:int,float,long,string,double

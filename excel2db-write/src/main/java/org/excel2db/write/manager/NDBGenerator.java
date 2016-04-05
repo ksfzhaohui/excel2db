@@ -218,9 +218,11 @@ public class NDBGenerator {
 				buffer.putLong(Long.valueOf(getInitValue(data.get(i))));
 			} else if (type == TypeEnum.STRING) {
 				buffer.put(stringBuff(data.get(i)));
+			} else if (type == TypeEnum.DOUBLE) {
+				buffer.putDouble(Double.valueOf(getInitValue(data.get(i))));
 			} else {
 				throw new RuntimeException("error type:" + type
-						+ "support:int,float,long,string");
+						+ "support:int,float,long,string,double");
 			}
 		}
 

@@ -28,9 +28,11 @@ public class CSharpSign {
 			return "long ";
 		case STRING:
 			return "string ";
+		case DOUBLE:
+			return "double ";
 		default:
 			throw new RuntimeException("error type:" + type
-					+ " support:int,float,long,string");
+					+ " support:int,float,long,string,double");
 		}
 	}
 
