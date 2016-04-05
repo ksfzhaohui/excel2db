@@ -2,7 +2,7 @@ package org.excel2db.read.util;
 
 public enum TypeEnum {
 
-	INT('i'), FLOAT('f'), LONG('l'), STRING('s');
+	INT('i'), FLOAT('f'), LONG('l'), STRING('s'), DOUBLE('d');
 
 	private char value;
 
@@ -24,9 +24,11 @@ public enum TypeEnum {
 			return LONG;
 		} else if (type == 's') {
 			return STRING;
+		} else if (type == 'd') {
+			return DOUBLE;
 		} else {
 			throw new RuntimeException("error type:" + type
-					+ "support:int,float,long,string");
+					+ "support:int,float,long,string,double");
 		}
 	}
 

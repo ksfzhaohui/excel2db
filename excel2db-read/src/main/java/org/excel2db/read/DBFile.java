@@ -75,6 +75,8 @@ public class DBFile {
 					obj = buffer.getLong();
 				} else if (type == TypeEnum.STRING) {
 					obj = getString(buffer);
+				} else if (type == TypeEnum.DOUBLE) {
+					obj = buffer.getDouble();
 				}
 				map.put(column, obj);
 			}

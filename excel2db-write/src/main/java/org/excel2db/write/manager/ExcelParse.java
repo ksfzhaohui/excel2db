@@ -91,6 +91,8 @@ public class ExcelParse {
 								Float.valueOf(value);
 							} else if (typeEnum == TypeEnum.LONG) {
 								Long.valueOf(value);
+							} else if (typeEnum == TypeEnum.DOUBLE) {
+								Double.valueOf(value);
 							}
 						} catch (Exception e) {
 							throw new RuntimeException(

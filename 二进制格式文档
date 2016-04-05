@@ -25,7 +25,7 @@ columnType
 data
 {
 	for(){
-		if(type==int || type==float || type==long){
+		if(type==int || type==float || type==long || type==double){
 			byte[] value;
 		}else if(type==string){
 			int len;
