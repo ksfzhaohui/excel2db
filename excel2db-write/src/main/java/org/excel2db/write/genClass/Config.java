@@ -12,13 +12,15 @@ public class Config {
 	private String beanRoot;// bean生成路径
 	private String packageRoot;// 包路径
 	private String excelPath;
+	private String ndbPath;
 
 	public Config(String language, String beanRoot, String packageRoot,
-			String excelPath) {
+			String excelPath, String ndbPath) {
 		this.language = language;
 		this.beanRoot = beanRoot;
 		this.packageRoot = packageRoot;
 		this.excelPath = excelPath;
+		this.ndbPath = ndbPath;
 	}
 
 	public Config(String language, String beanRoot, String excelPath) {
@@ -57,6 +59,14 @@ public class Config {
 
 	public void setExcelPath(String excelPath) {
 		this.excelPath = excelPath;
+	}
+
+	public String getNdbPath() {
+		return ndbPath;
+	}
+
+	public void setNdbPath(String ndbPath) {
+		this.ndbPath = ndbPath;
 	}
 
 }

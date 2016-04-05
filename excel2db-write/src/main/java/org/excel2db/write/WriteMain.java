@@ -15,11 +15,12 @@ public class WriteMain {
 
 	public static void main(String[] args) {
 		if (args == null || args.length == 0) {
-			args = new String[4];
+			args = new String[5];
 			args[0] = "java";
 			args[1] = "D:\\ndbtest";
 			args[2] = "test";
 			args[3] = "D:\\ndbtest";
+			args[4] = "D:\\ndbtest";
 		}
 
 		Config config = getConfig(args);
@@ -35,7 +36,7 @@ public class WriteMain {
 			excel.readExcel();
 
 			NDBGenerator db = new NDBGenerator(excel);
-			db.writeDB(excelPath);
+			db.writeDB(config.getNdbPath() + File.separator);
 
 			GeneratorBeanClass generator = new GeneratorBeanClass(excel, config);
 			generator.generator();
@@ -48,14 +49,14 @@ public class WriteMain {
 			System.exit(0);
 		}
 		Config config = null;
-		if (args.length != 4 && args.length != 3) {
-			logger.info("error init param,param:language,beanRoot,namespace,excelPath");
+		if (args.length != 5 && args.length != 4) {
+			logger.info("error init param,param:language,beanRoot,namespace,excelPath,ndbPath");
 			System.exit(0);
 		}
-		if (args.length == 4) {
-			config = new Config(args[0], args[1], args[2], args[3]);
-		} else if (args.length == 3) {
-			config = new Config(args[0], args[1], "", args[2]);
+		if (args.length == 5) {
+			config = new Config(args[0], args[1], args[2], args[3], args[4]);
+		} else if (args.length == 4) {
+			config = new Config(args[0], args[1], "", args[2], args[3]);
 		}
 		return config;
 	}
