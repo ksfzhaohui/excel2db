@@ -17,6 +17,9 @@ public class FileUtil {
 	 */
 	public static List<String> getFileList(String path) {
 		List<String> fileList = new ArrayList<String>();
+		if (path == null || path.equals("")) {
+			return fileList;
+		}
 		File f = new File(path);
 		if (f.isDirectory()) {
 			File[] fs = f.listFiles();
