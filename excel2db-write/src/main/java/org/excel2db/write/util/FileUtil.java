@@ -6,17 +6,29 @@ import java.util.List;
 
 public class FileUtil {
 
-	public static List<String> getData(String path) {
+	/** excel文件后缀 **/
+	public static final String SUFFIX = ".xls";
+
+	/**
+	 * 获取指定路径下所有的excel文件
+	 * 
+	 * @param path
+	 * @return
+	 */
+	public static List<String> getFileList(String path) {
 		List<String> fileList = new ArrayList<String>();
+		if (path == null || path.equals("")) {
+			return fileList;
+		}
 		File f = new File(path);
 		if (f.isDirectory()) {
 			File[] fs = f.listFiles();
 			if (fs != null) {
 				for (int i = 0; i < fs.length; i++) {
-					fileList.addAll(getData(fs[i].getPath()));
+					fileList.addAll(getFileList(fs[i].getPath()));
 				}
 			}
-		} else if (f.getName().endsWith(".xls")) {
+		} else if (f.getName().endsWith(SUFFIX)) {
 			fileList.add(f.getName());
 		}
 		return fileList;

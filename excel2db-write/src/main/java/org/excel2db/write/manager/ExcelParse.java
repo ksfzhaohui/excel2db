@@ -59,15 +59,13 @@ public class ExcelParse {
 				List<TypeEnum> typeList = new ArrayList<TypeEnum>();
 				List<String> nameList = new ArrayList<String>();
 
-				for (int i = 0; i < columns; i++) {
-					String type = sheet.getCell(i, TYPE_ROW).getContents()
-							.trim();
+				for (int column = 0; column < columns; column++) {
+					String type = getValue(sheet, column, TYPE_ROW);
 					TypeEnum typeEnum = TypeEnum.type(type);
 					if (typeEnum != null) {
 						typeList.add(typeEnum);
-						nameList.add(sheet.getCell(i, NAME_ROW).getContents()
-								.trim());
-						columnList.add(i);
+						nameList.add(getValue(sheet, column, NAME_ROW));
+						columnList.add(column);
 					}
 				}
 
@@ -75,31 +73,16 @@ public class ExcelParse {
 				columnTypeMap.put(sheet.getName(), typeList);
 
 				List<List<String>> dataList = new ArrayList<List<String>>();
-				for (int i = DATA_STAR_ROW; i < rows; i++) {
+				for (int row = DATA_STAR_ROW; row < rows; row++) {
 					List<String> list = new ArrayList<String>();
-					for (int k = 0; k < columnList.size(); k++) {
-						int column = columnList.get(k);
-						TypeEnum typeEnum = typeList.get(k);
+					for (int index = 0; index < columnList.size(); index++) {
+						int column = columnList.get(index);
+						TypeEnum typeEnum = typeList.get(index);
 
-						String content = sheet.getCell(column, i).getContents()
-								.trim();
+						String content = getValue(sheet, column, row);
 						String value = getInitValue(content);
-						try {
-							if (typeEnum == TypeEnum.INT) {
-								Integer.valueOf(value);
-							} else if (typeEnum == TypeEnum.FLOAT) {
-								Float.valueOf(value);
-							} else if (typeEnum == TypeEnum.LONG) {
-								Long.valueOf(value);
-							} else if (typeEnum == TypeEnum.DOUBLE) {
-								Double.valueOf(value);
-							}
-						} catch (Exception e) {
-							throw new RuntimeException(
-									"numberFormatException:row=" + (i + 1)
-											+ ",column=" + (column + 1));
-						}
 
+						checkValue(typeEnum, value, row, column);
 						list.add(value);
 					}
 					dataList.add(list);
@@ -114,6 +97,43 @@ public class ExcelParse {
 			if (book != null) {
 				book.close();
 			}
+		}
+	}
+
+	/**
+	 * 获取单元格中的数值
+	 * 
+	 * @param sheet
+	 * @param column
+	 * @param row
+	 * @return
+	 */
+	private String getValue(Sheet sheet, int column, int row) {
+		return sheet.getCell(column, row).getContents().trim();
+	}
+
+	/**
+	 * 对excle中单元格数组就行检查
+	 * 
+	 * @param typeEnum
+	 * @param value
+	 * @param row
+	 * @param column
+	 */
+	private void checkValue(TypeEnum typeEnum, String value, int row, int column) {
+		try {
+			if (typeEnum == TypeEnum.INT) {
+				Integer.valueOf(value);
+			} else if (typeEnum == TypeEnum.FLOAT) {
+				Float.valueOf(value);
+			} else if (typeEnum == TypeEnum.LONG) {
+				Long.valueOf(value);
+			} else if (typeEnum == TypeEnum.DOUBLE) {
+				Double.valueOf(value);
+			}
+		} catch (Exception e) {
+			throw new RuntimeException("numberFormatException:row=" + (row + 1)
+					+ ",column=" + (column + 1));
 		}
 	}
 
