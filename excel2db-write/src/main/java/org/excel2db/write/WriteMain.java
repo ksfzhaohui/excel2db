@@ -27,11 +27,11 @@ public class WriteMain {
 		String excelPath = config.getExcelPath();
 		excelPath = excelPath + File.separator;
 		logger.info("path:" + excelPath);
-		List<String> fileList = FileUtil.getData(excelPath);
+		List<String> fileList = FileUtil.getFileList(excelPath);
 		logger.info("fileList:" + fileList);
 
 		for (String fileName : fileList) {
-			logger.info("process:" + fileName);
+			logger.info("handle file:" + fileName);
 			ExcelParse excel = new ExcelParse(excelPath + fileName);
 			excel.readExcel();
 
@@ -45,12 +45,12 @@ public class WriteMain {
 
 	private static Config getConfig(String[] args) {
 		if (args == null || args.length < 1) {
-			logger.info("no language param support:java,csharp");
+			logger.info("error init param:[language,beanRoot,namespace,excelPath,ndbPath]");
 			System.exit(0);
 		}
 		Config config = null;
 		if (args.length != 5 && args.length != 4) {
-			logger.info("error init param,param:language,beanRoot,namespace,excelPath,ndbPath");
+			logger.info("error init param:[language,beanRoot,namespace,excelPath,ndbPath]");
 			System.exit(0);
 		}
 		if (args.length == 5) {
