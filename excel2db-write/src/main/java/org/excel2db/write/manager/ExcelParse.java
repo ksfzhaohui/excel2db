@@ -1,15 +1,17 @@
 package org.excel2db.write.manager;
 
-import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jxl.Sheet;
-import jxl.Workbook;
-
 import org.apache.log4j.Logger;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.excel2db.write.util.TypeEnum;
 
 /**
@@ -48,12 +50,13 @@ public class ExcelParse {
 		logger.info("start read excel....");
 		Workbook book = null;
 		try {
-			book = Workbook.getWorkbook(new File(filePath));
+			book = WorkbookFactory.create(new FileInputStream(filePath));
 
-			Sheet sheets[] = book.getSheets();
-			for (Sheet sheet : sheets) {
-				int rows = sheet.getRows();
-				int columns = sheet.getColumns();
+			int sheetNum = book.getNumberOfSheets();
+			for (int num = 0; num < sheetNum; num++) {
+				Sheet sheet = book.getSheetAt(num);
+				int rows = getRowNum(book, num);
+				int columns = getColumnNum(book, num);
 
 				List<Integer> columnList = new ArrayList<Integer>();
 				List<TypeEnum> typeList = new ArrayList<TypeEnum>();
@@ -69,11 +72,12 @@ public class ExcelParse {
 					}
 				}
 
-				columnNameMap.put(sheet.getName(), nameList);
-				columnTypeMap.put(sheet.getName(), typeList);
+				String sheetName = sheet.getSheetName();
+				columnNameMap.put(sheetName, nameList);
+				columnTypeMap.put(sheetName, typeList);
 
 				List<List<String>> dataList = new ArrayList<List<String>>();
-				for (int row = DATA_STAR_ROW; row < rows; row++) {
+				for (int row = DATA_STAR_ROW; row <= rows; row++) {
 					List<String> list = new ArrayList<String>();
 					for (int index = 0; index < columnList.size(); index++) {
 						int column = columnList.get(index);
@@ -88,16 +92,36 @@ public class ExcelParse {
 					dataList.add(list);
 				}
 
-				dataMap.put(sheet.getName(), dataList);
+				dataMap.put(sheetName, dataList);
 			}
 			logger.info("end read excel....");
 		} catch (Exception e) {
 			logger.error("readExcel error", e);
-		} finally {
-			if (book != null) {
-				book.close();
-			}
 		}
+	}
+
+	/**
+	 * 返回Excel最大行index值，实际行数要加1
+	 * 
+	 * @return
+	 */
+	public int getRowNum(Workbook book, int sheetIndex) {
+		Sheet sheet = book.getSheetAt(sheetIndex);
+		return sheet.getLastRowNum();
+	}
+
+	/**
+	 * 返回数据的列数
+	 * 
+	 * @return
+	 */
+	public int getColumnNum(Workbook book, int sheetIndex) {
+		Sheet sheet = book.getSheetAt(sheetIndex);
+		Row row = sheet.getRow(0);
+		if (row != null && row.getLastCellNum() > 0) {
+			return row.getLastCellNum();
+		}
+		return 0;
 	}
 
 	/**
@@ -109,7 +133,13 @@ public class ExcelParse {
 	 * @return
 	 */
 	private String getValue(Sheet sheet, int column, int row) {
-		return sheet.getCell(column, row).getContents().trim();
+		Row rowObj = sheet.getRow(row);
+		Cell cell = rowObj.getCell(column);
+		cell.setCellType(Cell.CELL_TYPE_STRING);
+//		
+//		System.err.println(cell.getCellType());
+//		System.out.println(cell.getStringCellValue()+"===="+cell.getCellType());
+		return cell.getStringCellValue().trim();
 	}
 
 	/**
