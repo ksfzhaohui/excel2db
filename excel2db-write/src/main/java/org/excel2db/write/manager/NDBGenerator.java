@@ -50,6 +50,10 @@ public class NDBGenerator {
 				List<String> columnNames = columnNameMap.get(key);
 				List<TypeEnum> typeEnums = columnTypeMap.get(key);
 				List<List<String>> datas = dataMap.get(key);
+				if (columnNames.size() <= 0 || typeEnums.size() <= 0
+						|| datas.size() <= 0) {
+					break;
+				}
 
 				ByteBuffer headerBuffer = getHeaderBuffer(datas.size(),
 						columnNames.size());
