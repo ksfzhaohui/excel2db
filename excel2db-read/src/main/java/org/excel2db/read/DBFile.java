@@ -25,6 +25,8 @@ public class DBFile {
 
 	/** header的长度 **/
 	private static final int HEADER_LENGTH = 5 * 4;
+	/** 字符串编码格式 **/
+	private static final String STRING_ENCODING = "UTF-8";
 
 	private Header header;
 	private List<String> columnNames = new ArrayList<String>();
@@ -142,7 +144,7 @@ public class DBFile {
 		int len = buffer.getInt();
 		byte dst[] = new byte[len];
 		buffer.get(dst);
-		return new String(dst, "UTF-8");
+		return new String(dst, STRING_ENCODING);
 	}
 
 	public List<Map<String, Object>> getDataMap() {

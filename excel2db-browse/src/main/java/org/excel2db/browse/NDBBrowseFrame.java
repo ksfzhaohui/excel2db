@@ -18,6 +18,12 @@ import javax.swing.ListSelectionModel;
 import org.apache.log4j.Logger;
 import org.excel2db.read.DBFile;
 
+/**
+ * 浏览ndb文件的窗口
+ * 
+ * @author zhaohui
+ * 
+ */
 public class NDBBrowseFrame extends JFrame {
 
 	private final static Logger logger = Logger.getLogger(NDBBrowseFrame.class);

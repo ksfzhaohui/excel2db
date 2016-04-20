@@ -2,6 +2,12 @@ package org.excel2db.browse;
 
 import javax.swing.table.AbstractTableModel;
 
+/**
+ * 表格数据模型
+ * 
+ * @author zhaohui
+ * 
+ */
 public class NDBTableModel extends AbstractTableModel {
 
 	private static final long serialVersionUID = 1L;
