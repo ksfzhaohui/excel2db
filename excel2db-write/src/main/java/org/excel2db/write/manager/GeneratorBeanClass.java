@@ -40,6 +40,9 @@ public class GeneratorBeanClass {
 			for (String key : keys) {
 				List<String> columnNames = columnNameMap.get(key);
 				List<TypeEnum> typeEnums = columnTypeMap.get(key);
+				if (columnNames.size() <= 0 || typeEnums.size() <= 0) {
+					break;
+				}
 
 				SheetInfo info = new SheetInfo(key + NAME_ENDFIX, columnNames,
 						typeEnums);

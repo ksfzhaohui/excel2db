@@ -7,7 +7,8 @@ import java.util.List;
 public class FileUtil {
 
 	/** excel文件后缀 **/
-	public static final String SUFFIX = ".xls";
+	public static final String XLS = ".xls";
+	public static final String XLSX = ".xlsx";
 
 	/**
 	 * 获取指定路径下所有的excel文件
@@ -28,7 +29,7 @@ public class FileUtil {
 					fileList.addAll(getFileList(fs[i].getPath()));
 				}
 			}
-		} else if (f.getName().endsWith(SUFFIX)) {
+		} else if (f.getName().endsWith(XLS) || f.getName().endsWith(XLSX)) {
 			fileList.add(f.getName());
 		}
 		return fileList;
