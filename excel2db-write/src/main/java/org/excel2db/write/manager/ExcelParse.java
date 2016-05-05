@@ -77,13 +77,16 @@ public class ExcelParse {
 				columnTypeMap.put(sheetName, typeList);
 
 				List<List<String>> dataList = new ArrayList<List<String>>();
-				for (int row = DATA_STAR_ROW; row <= rows; row++) {
+				next: for (int row = DATA_STAR_ROW; row <= rows; row++) {
 					List<String> list = new ArrayList<String>();
 					for (int index = 0; index < columnList.size(); index++) {
 						int column = columnList.get(index);
 						TypeEnum typeEnum = typeList.get(index);
 
 						String content = getValue(sheet, column, row);
+						if (index == 0 && content.equals("")) {
+							break next;
+						}
 						String value = getInitValue(content);
 
 						checkValue(typeEnum, value, row, column);
@@ -135,10 +138,10 @@ public class ExcelParse {
 	private String getValue(Sheet sheet, int column, int row) {
 		Row rowObj = sheet.getRow(row);
 		Cell cell = rowObj.getCell(column);
+		if (cell == null) {
+			return "";
+		}
 		cell.setCellType(Cell.CELL_TYPE_STRING);
-//		
-//		System.err.println(cell.getCellType());
-//		System.out.println(cell.getStringCellValue()+"===="+cell.getCellType());
 		return cell.getStringCellValue().trim();
 	}
 
