@@ -34,4 +34,27 @@ public class FileUtil {
 		}
 		return fileList;
 	}
+
+	/**
+	 * 删除指定目录的所有文件
+	 * 
+	 * @param path
+	 * @param suffix
+	 *            指定后缀
+	 */
+	public static void deleteAllFilesOfDir(File path, String suffix) {
+		if (!path.exists())
+			return;
+		if (path.isFile()) {
+			path.delete();
+			return;
+		}
+		File[] files = path.listFiles();
+		for (int i = 0; i < files.length; i++) {
+			if (files[i].getName().endsWith(suffix)) {
+				deleteAllFilesOfDir(files[i], suffix);
+			}
+		}
+		path.delete();
+	}
 }

@@ -24,7 +24,7 @@ public class NDBGenerator {
 	private final static Logger logger = Logger.getLogger(NDBGenerator.class);
 
 	/** 生成的二进制文件后缀 **/
-	private static final String FILE_SUFFIX = ".ndb";
+	public static final String FILE_SUFFIX = ".ndb";
 	/** 字符串编码格式 **/
 	private static final String STRING_ENCODING = "UTF-8";
 
