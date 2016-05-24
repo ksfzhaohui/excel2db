@@ -34,7 +34,7 @@ public class GeneratorBeanClass {
 	}
 
 	public void generator() {
-		logger.info("start generator bean file....");
+		logger.info("start generator bean file");
 		try {
 			Set<String> keys = columnNameMap.keySet();
 			for (String key : keys) {
@@ -50,7 +50,7 @@ public class GeneratorBeanClass {
 						.getLanguage());
 				generator.generator(info, config);
 			}
-			logger.info("end generator bean file....");
+			logger.info("end generator bean file");
 		} catch (Exception e) {
 			logger.error("generator bean error", e);
 		}

@@ -42,7 +42,7 @@ public class NDBGenerator {
 	}
 
 	public void writeDB(String path) {
-		logger.info("start write db file....");
+		logger.info("start write db file");
 		FileChannel fc = null;
 		try {
 			Set<String> keys = columnNameMap.keySet();
@@ -78,7 +78,7 @@ public class NDBGenerator {
 				fc.write(columnTypeBuffer);
 				fc.write(dataBuffer);
 			}
-			logger.info("end write db file....");
+			logger.info("end write db file");
 		} catch (Exception e) {
 			logger.error("writeDB error", e);
 		} finally {

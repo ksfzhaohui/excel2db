@@ -31,7 +31,7 @@ public class WriteMain {
 		logger.info("fileList:" + fileList);
 
 		for (String fileName : fileList) {
-			logger.info("handle file:" + fileName);
+			logger.info("++++++handle file:【" + fileName + "】++++++");
 			ExcelParse excel = new ExcelParse(excelPath + fileName);
 			excel.readExcel();
 

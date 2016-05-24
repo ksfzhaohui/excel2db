@@ -47,7 +47,7 @@ public class ExcelParse {
 	 * 读取excel
 	 */
 	public void readExcel() {
-		logger.info("start read excel....");
+		logger.info("start read excel");
 		Workbook book = null;
 		try {
 			book = WorkbookFactory.create(new FileInputStream(filePath));
@@ -67,7 +67,12 @@ public class ExcelParse {
 					TypeEnum typeEnum = TypeEnum.type(type);
 					if (typeEnum != null) {
 						typeList.add(typeEnum);
-						nameList.add(getValue(sheet, column, NAME_ROW));
+						String name = getValue(sheet, column, NAME_ROW);
+						if (name.equals("")) {
+							throw new RuntimeException(
+									"nameNullException:column=" + (column + 1));
+						}
+						nameList.add(name);
 						columnList.add(column);
 					}
 				}
@@ -97,7 +102,7 @@ public class ExcelParse {
 
 				dataMap.put(sheetName, dataList);
 			}
-			logger.info("end read excel....");
+			logger.info("end read excel");
 		} catch (Exception e) {
 			logger.error("readExcel error", e);
 		}
