@@ -1,4 +1,8 @@
 @echo off
+echo ================================================================
+echo  此工具支持Excel97以上版本,后缀为.xls和.xlsx,稍后会有更多支持!
+echo ================================================================
+
 set language=csharp
 set beanRoot=D:\ndbtest\excelPath\bean
 set nameSpace=bean

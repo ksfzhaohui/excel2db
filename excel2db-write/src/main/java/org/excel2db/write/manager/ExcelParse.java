@@ -47,7 +47,7 @@ public class ExcelParse {
 	 * 读取excel
 	 */
 	public void readExcel() {
-		logger.info("start read excel");
+		logger.debug("start read excel");
 		Workbook book = null;
 		try {
 			book = WorkbookFactory.create(new FileInputStream(filePath));
@@ -62,6 +62,7 @@ public class ExcelParse {
 				List<TypeEnum> typeList = new ArrayList<TypeEnum>();
 				List<String> nameList = new ArrayList<String>();
 
+				String sheetName = sheet.getSheetName();
 				for (int column = 0; column < columns; column++) {
 					String type = getValue(sheet, column, TYPE_ROW);
 					TypeEnum typeEnum = TypeEnum.type(type);
@@ -70,14 +71,14 @@ public class ExcelParse {
 						String name = getValue(sheet, column, NAME_ROW);
 						if (name.equals("")) {
 							throw new RuntimeException(
-									"nameNullException:column=" + (column + 1));
+									"nameNullException:sheet=" + sheetName
+											+ ",column=" + (column + 1));
 						}
 						nameList.add(name);
 						columnList.add(column);
 					}
 				}
 
-				String sheetName = sheet.getSheetName();
 				columnNameMap.put(sheetName, nameList);
 				columnTypeMap.put(sheetName, typeList);
 
@@ -94,7 +95,7 @@ public class ExcelParse {
 						}
 						String value = getInitValue(content);
 
-						checkValue(typeEnum, value, row, column);
+						checkValue(sheetName,typeEnum, value, row, column);
 						list.add(value);
 					}
 					dataList.add(list);
@@ -102,7 +103,7 @@ public class ExcelParse {
 
 				dataMap.put(sheetName, dataList);
 			}
-			logger.info("end read excel");
+			logger.debug("end read excel");
 		} catch (Exception e) {
 			logger.error("readExcel error", e);
 		}
@@ -158,7 +159,8 @@ public class ExcelParse {
 	 * @param row
 	 * @param column
 	 */
-	private void checkValue(TypeEnum typeEnum, String value, int row, int column) {
+	private void checkValue(String sheetName, TypeEnum typeEnum, String value,
+			int row, int column) {
 		try {
 			if (typeEnum == TypeEnum.INT) {
 				Integer.valueOf(value);
@@ -170,8 +172,9 @@ public class ExcelParse {
 				Double.valueOf(value);
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("numberFormatException:row=" + (row + 1)
-					+ ",column=" + (column + 1));
+			throw new RuntimeException("numberFormatException:sheet="
+					+ sheetName + ",row=" + (row + 1) + ",column="
+					+ (column + 1));
 		}
 	}
 
