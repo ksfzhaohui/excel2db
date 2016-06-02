@@ -11,6 +11,8 @@ public class JavaSign {
 	public static String Return = "return ";
 	public static String This = "this";
 	public static String Class = "class ";
+	public static String Left_Brace = " {";
+	public static String Right_Brace = "}";
 
 	public static final String[] Tab = new String[] { "", "\t", "\t\t",
 			"\t\t\t", "\t\t\t\t", "\t\t\t\t\t", "\t\t\t\t\t\t" };

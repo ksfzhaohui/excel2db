@@ -36,7 +36,8 @@ public class CSharpGenerator extends AbstractGenerator {
 		}
 
 		out.println(CSharpSign.Tab[1 - index] + CSharpSign.Public
-				+ CSharpSign.Class + toFirstUpperCase(info.getName()) + " {");
+				+ CSharpSign.Class + toFirstUpperCase(info.getName())
+				+ CSharpSign.Left_Brace);
 		out.println();
 
 		List<String> columnNames = info.getColumnNames();
@@ -56,23 +57,24 @@ public class CSharpGenerator extends AbstractGenerator {
 
 			out.println(CSharpSign.Tab[2 - index] + CSharpSign.Public
 					+ CSharpSign.fullType(type) + toGetMethod(columnName)
-					+ " {");
+					+ CSharpSign.Left_Brace);
 			out.println(CSharpSign.Tab[3 - index] + CSharpSign.Return
 					+ columnName + ";");
-			out.println(CSharpSign.Tab[2 - index] + "}");
+			out.println(CSharpSign.Tab[2 - index] + CSharpSign.Right_Brace);
 			out.println();
 
 			out.println(CSharpSign.Tab[2 - index] + CSharpSign.Public
 					+ CSharpSign.Void
-					+ toSetMethod(columnName, CSharpSign.fullType(type)) + " {");
+					+ toSetMethod(columnName, CSharpSign.fullType(type))
+					+ CSharpSign.Left_Brace);
 			out.println(CSharpSign.Tab[3 - index] + CSharpSign.This + "."
 					+ columnName + " = " + columnName + ";");
-			out.println(CSharpSign.Tab[2 - index] + "}");
+			out.println(CSharpSign.Tab[2 - index] + CSharpSign.Right_Brace);
 			out.println();
 		}
-		out.println(CSharpSign.Tab[1 - index] + "}");
+		out.println(CSharpSign.Tab[1 - index] + CSharpSign.Right_Brace);
 		if (isNameSpace) {
-			out.println("}");
+			out.println(CSharpSign.Right_Brace);
 		}
 	}
 

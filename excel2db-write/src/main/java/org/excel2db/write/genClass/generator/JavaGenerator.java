@@ -23,7 +23,7 @@ public class JavaGenerator extends AbstractGenerator {
 		}
 
 		out.println(JavaSign.Public + JavaSign.Class
-				+ toFirstUpperCase(info.getName()) + " {");
+				+ toFirstUpperCase(info.getName()) + JavaSign.Left_Brace);
 		out.println();
 
 		List<String> columnNames = info.getColumnNames();
@@ -42,19 +42,19 @@ public class JavaGenerator extends AbstractGenerator {
 			String columnName = columnNames.get(i);
 
 			out.println(JavaSign.Tab[1] + JavaSign.Public
-					+ JavaSign.fullType(type) + toGetMethod(columnName) + " {");
+					+ JavaSign.fullType(type) + toGetMethod(columnName) + JavaSign.Left_Brace);
 			out.println(JavaSign.Tab[2] + JavaSign.Return + columnName + ";");
-			out.println(JavaSign.Tab[1] + "}");
+			out.println(JavaSign.Tab[1] + JavaSign.Right_Brace);
 			out.println();
 
 			out.println(JavaSign.Tab[1] + JavaSign.Public + JavaSign.Void
-					+ toSetMethod(columnName, JavaSign.fullType(type)) + " {");
+					+ toSetMethod(columnName, JavaSign.fullType(type)) + JavaSign.Left_Brace);
 			out.println(JavaSign.Tab[2] + JavaSign.This + "." + columnName
 					+ " = " + columnName + ";");
-			out.println(JavaSign.Tab[1] + "}");
+			out.println(JavaSign.Tab[1] + JavaSign.Right_Brace);
 			out.println();
 		}
-		out.println("}");
+		out.println(JavaSign.Right_Brace);
 	}
 
 	private String toGetMethod(String columnName) {

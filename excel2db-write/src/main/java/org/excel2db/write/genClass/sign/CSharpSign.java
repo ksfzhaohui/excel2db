@@ -11,6 +11,8 @@ public class CSharpSign {
 	public static String This = "this";
 	public static String Class = "class ";
 	public static String NameSpace = "namespace ";
+	public static String Left_Brace = " {";
+	public static String Right_Brace = "}";
 
 	public static final String[] using = new String[] { "using UnityEngine;",
 			"using System.Collections;" };

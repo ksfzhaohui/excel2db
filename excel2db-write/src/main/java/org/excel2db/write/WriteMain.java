@@ -17,7 +17,7 @@ public class WriteMain {
 	public static void main(String[] args) {
 		if (args == null || args.length == 0) {
 			args = new String[5];
-			args[0] = "java";
+			args[0] = "csharp";
 			args[1] = "D:\\ndbtest";
 			args[2] = "test";
 			args[3] = "D:\\ndbtest";
@@ -51,12 +51,12 @@ public class WriteMain {
 
 	private static Config getConfig(String[] args) {
 		if (args == null || args.length < 1) {
-			logger.info("error init param:[language,beanRoot,namespace,excelPath,ndbPath]");
+			logger.error("error init param:[language,beanRoot,namespace,excelPath,ndbPath]");
 			System.exit(0);
 		}
 		Config config = null;
 		if (args.length != 5 && args.length != 4) {
-			logger.info("error init param:[language,beanRoot,namespace,excelPath,ndbPath]");
+			logger.error("error init param:[language,beanRoot,namespace,excelPath,ndbPath]");
 			System.exit(0);
 		}
 		if (args.length == 5) {
