@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.excel2db.write.util.ExcelColumn;
 import org.excel2db.write.util.TypeEnum;
 
 /**
@@ -66,13 +67,14 @@ public class ExcelParse {
 				for (int column = 0; column < columns; column++) {
 					String type = getValue(sheet, column, TYPE_ROW);
 					TypeEnum typeEnum = TypeEnum.type(type);
+					// 不存在的类型直接抛弃，主要是方便添加一些注释的列
 					if (typeEnum != null) {
 						typeList.add(typeEnum);
 						String name = getValue(sheet, column, NAME_ROW);
 						if (name.equals("")) {
 							throw new RuntimeException(
-									"nameNullException:sheet=" + sheetName
-											+ ",column=" + (column + 1));
+									"NameNullException:sheet=" + sheetName
+											+ ",column=" + toAZ(column + 1));
 						}
 						nameList.add(name);
 						columnList.add(column);
@@ -95,7 +97,7 @@ public class ExcelParse {
 						}
 						String value = getInitValue(content);
 
-						checkValue(sheetName,typeEnum, value, row, column);
+						checkValue(sheetName, typeEnum, value, row, column);
 						list.add(value);
 					}
 					dataList.add(list);
@@ -143,6 +145,9 @@ public class ExcelParse {
 	 */
 	private String getValue(Sheet sheet, int column, int row) {
 		Row rowObj = sheet.getRow(row);
+		if (rowObj == null) {
+			return "";
+		}
 		Cell cell = rowObj.getCell(column);
 		if (cell == null) {
 			return "";
@@ -174,8 +179,12 @@ public class ExcelParse {
 		} catch (Exception e) {
 			throw new RuntimeException("numberFormatException:sheet="
 					+ sheetName + ",row=" + (row + 1) + ",column="
-					+ (column + 1));
+					+ toAZ(column + 1));
 		}
+	}
+
+	private String toAZ(int column) {
+		return ExcelColumn.excelColIndexToStr(column);
 	}
 
 	/**
