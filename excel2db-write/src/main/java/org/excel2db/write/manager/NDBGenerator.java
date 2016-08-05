@@ -1,5 +1,6 @@
 package org.excel2db.write.manager;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -64,6 +65,11 @@ public class NDBGenerator {
 				headerBuffer.putInt(columnNameBuffer.limit());
 				headerBuffer.putInt(columnTypeBuffer.limit());
 				headerBuffer.putInt(dataBuffer.limit());
+
+				File ndbPath = new File(path);
+				if (!ndbPath.exists()) {
+					ndbPath.mkdirs();
+				}
 
 				fc = new FileOutputStream(path + key + FILE_SUFFIX)
 						.getChannel();
