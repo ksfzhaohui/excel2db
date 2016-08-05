@@ -81,29 +81,33 @@ public class ExcelParse {
 					}
 				}
 
-				columnNameMap.put(sheetName, nameList);
-				columnTypeMap.put(sheetName, typeList);
+				if (nameList.size() > 0 && typeList.size() > 0) {
+					columnNameMap.put(sheetName, nameList);
+					columnTypeMap.put(sheetName, typeList);
 
-				List<List<String>> dataList = new ArrayList<List<String>>();
-				next: for (int row = DATA_STAR_ROW; row <= rows; row++) {
-					List<String> list = new ArrayList<String>();
-					for (int index = 0; index < columnList.size(); index++) {
-						int column = columnList.get(index);
-						TypeEnum typeEnum = typeList.get(index);
+					List<List<String>> dataList = new ArrayList<List<String>>();
+					next: for (int row = DATA_STAR_ROW; row <= rows; row++) {
+						List<String> list = new ArrayList<String>();
+						for (int index = 0; index < columnList.size(); index++) {
+							int column = columnList.get(index);
+							TypeEnum typeEnum = typeList.get(index);
 
-						String content = getValue(sheet, column, row);
-						if (index == 0 && content.equals("")) {
-							break next;
+							String content = getValue(sheet, column, row);
+							if (index == 0 && content.equals("")) {
+								break next;
+							}
+							String value = getInitValue(content);
+
+							checkValue(sheetName, typeEnum, value, row, column);
+							list.add(value);
 						}
-						String value = getInitValue(content);
-
-						checkValue(sheetName, typeEnum, value, row, column);
-						list.add(value);
+						dataList.add(list);
 					}
-					dataList.add(list);
-				}
 
-				dataMap.put(sheetName, dataList);
+					dataMap.put(sheetName, dataList);
+				} else {
+					logger.info("please check sheet["+sheetName+"],name or type is invalid.");
+				}
 			}
 			logger.debug("end read excel");
 		} catch (Exception e) {
