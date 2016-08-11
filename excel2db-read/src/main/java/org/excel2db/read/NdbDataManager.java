@@ -1,6 +1,7 @@
 package org.excel2db.read;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public abstract class NdbDataManager<T> {
 
 	private DBFile dbFile;
 	private String ndbFilePath;
-	private List<T> beanList;
+	private List<T> beanList = new ArrayList<T>();
 
 	public abstract String getNdbName();
 

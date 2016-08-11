@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.excel2db.write.util.Constants;
 import org.excel2db.write.util.ExcelColumn;
 import org.excel2db.write.util.TypeEnum;
 
@@ -106,7 +107,8 @@ public class ExcelParse {
 
 					dataMap.put(sheetName, dataList);
 				} else {
-					logger.info("please check sheet["+sheetName+"],name or type is invalid.");
+					logger.info("please check sheet[" + sheetName
+							+ "],name or type is invalid.");
 				}
 			}
 			logger.debug("end read excel");
@@ -179,11 +181,39 @@ public class ExcelParse {
 				Long.valueOf(value);
 			} else if (typeEnum == TypeEnum.DOUBLE) {
 				Double.valueOf(value);
+			} else if (typeEnum == TypeEnum.INTS) {
+				String values[] = value.split(Constants.SEPARATOR);
+				for (String v : values) {
+					Integer.valueOf(v);
+				}
+			} else if (typeEnum == TypeEnum.FLOATS) {
+				String values[] = value.split(Constants.SEPARATOR);
+				for (String v : values) {
+					Float.valueOf(v);
+				}
+			} else if (typeEnum == TypeEnum.LONGS) {
+				String values[] = value.split(Constants.SEPARATOR);
+				for (String v : values) {
+					Long.valueOf(v);
+				}
+			} else if (typeEnum == TypeEnum.DOUBLES) {
+				String values[] = value.split(Constants.SEPARATOR);
+				for (String v : values) {
+					Double.valueOf(v);
+				}
 			}
 		} catch (Exception e) {
-			throw new RuntimeException("numberFormatException:sheet="
-					+ sheetName + ",row=" + (row + 1) + ",column="
-					+ toAZ(column + 1));
+			if (typeEnum == TypeEnum.INT || typeEnum == TypeEnum.FLOAT
+					|| typeEnum == TypeEnum.DOUBLE || typeEnum == TypeEnum.LONG) {
+				throw new RuntimeException("numberFormatException:sheet="
+						+ sheetName + ",row=" + (row + 1) + ",column="
+						+ toAZ(column + 1));
+			} else {
+				throw new RuntimeException("numberFormatException:sheet="
+						+ sheetName + ",row=" + (row + 1) + ",column="
+						+ toAZ(column + 1) + ",separator is "
+						+ Constants.SEPARATOR);
+			}
 		}
 	}
 

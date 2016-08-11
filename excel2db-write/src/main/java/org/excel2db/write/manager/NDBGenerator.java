@@ -206,7 +206,9 @@ public class NDBGenerator {
 		int length = 0;
 		for (int i = 0; i < data.size(); i++) {
 			TypeEnum type = typeEnums.get(i);
-			if (type == TypeEnum.STRING) {
+			if (type == TypeEnum.STRING || type == TypeEnum.STRINGS
+					|| type == TypeEnum.INTS || type == TypeEnum.LONGS
+					|| type == TypeEnum.FLOATS || type == TypeEnum.DOUBLES) {
 				length += getStringBuffSize(data.get(i));
 			} else {
 				length += TypeEnum.size(type);
@@ -230,9 +232,15 @@ public class NDBGenerator {
 				buffer.put(stringBuff(data.get(i)));
 			} else if (type == TypeEnum.DOUBLE) {
 				buffer.putDouble(Double.valueOf(getInitValue(data.get(i))));
+			} else if (type == TypeEnum.INTS || type == TypeEnum.FLOATS
+					|| type == TypeEnum.LONGS || type == TypeEnum.DOUBLES
+					|| type == TypeEnum.STRINGS) {
+				buffer.put(stringBuff(data.get(i)));
 			} else {
-				throw new RuntimeException("error type:" + type
-						+ "support:int,float,long,string,double");
+				throw new RuntimeException(
+						"error type:"
+								+ type
+								+ "support:int,float,long,string,double,ints,floats,longs,strings,doubles");
 			}
 		}
 

@@ -2,7 +2,8 @@ package org.excel2db.write.util;
 
 public enum TypeEnum {
 
-	INT('i'), FLOAT('f'), LONG('l'), STRING('s'), DOUBLE('d');
+	INT('i'), FLOAT('f'), LONG('l'), STRING('s'), DOUBLE('d'), INTS('x'), FLOATS(
+			'y'), LONGS('z'), STRINGS('j'), DOUBLES('k');
 
 	private char value;
 
@@ -36,6 +37,16 @@ public enum TypeEnum {
 			return STRING;
 		} else if (type.equalsIgnoreCase("double")) {
 			return DOUBLE;
+		} else if (type.equalsIgnoreCase("ints")) {
+			return INTS;
+		} else if (type.equalsIgnoreCase("floats")) {
+			return FLOATS;
+		} else if (type.equalsIgnoreCase("longs")) {
+			return LONGS;
+		} else if (type.equalsIgnoreCase("strings")) {
+			return STRINGS;
+		} else if (type.equalsIgnoreCase("doubles")) {
+			return DOUBLES;
 		} else {
 			return null;
 		}

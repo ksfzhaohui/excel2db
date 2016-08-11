@@ -7,6 +7,7 @@ import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetAdapter;
 import java.awt.dnd.DropTargetDropEvent;
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import javax.swing.ListSelectionModel;
 
 import org.apache.log4j.Logger;
 import org.excel2db.read.DBFile;
+import org.excel2db.read.util.Constants;
 
 /**
  * 浏览ndb文件的窗口
@@ -95,6 +97,19 @@ public class NDBBrowseFrame extends JFrame {
 			Object tableValue[] = new Object[columnNames.length];
 			for (int index = 0; index < columnNames.length; index++) {
 				tableValue[index] = map.get(columnNames[index]);
+
+				if (tableValue[index].getClass().isArray()) {
+					StringBuffer sb = new StringBuffer();
+					int len = Array.getLength(tableValue[index]);
+					for (int j = 0; j < len; j++) {
+						sb.append(Array.get(tableValue[index], j));
+						if (j != len - 1) {
+							sb.append(Constants.SEPARATOR);
+						}
+					}
+
+					tableValue[index] = sb.toString();
+				}
 			}
 			tableVales[i] = tableValue;
 		}

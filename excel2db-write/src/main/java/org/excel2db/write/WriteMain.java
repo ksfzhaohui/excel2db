@@ -17,7 +17,7 @@ public class WriteMain {
 	public static void main(String[] args) {
 		if (args == null || args.length == 0) {
 			args = new String[5];
-			args[0] = "csharp";
+			args[0] = "java";
 			args[1] = "D:\\ndbtest";
 			args[2] = "test";
 			args[3] = "D:\\ndbtest";

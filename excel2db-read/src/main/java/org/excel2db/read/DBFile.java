@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.excel2db.read.util.Constants;
 import org.excel2db.read.util.TypeEnum;
 
 /**
@@ -79,6 +80,40 @@ public class DBFile {
 					obj = getString(buffer);
 				} else if (type == TypeEnum.DOUBLE) {
 					obj = buffer.getDouble();
+				} else if (type == TypeEnum.INTS) {
+					String values[] = getString(buffer).split(
+							Constants.SEPARATOR);
+					int ints[] = new int[values.length];
+					for (int j = 0; j < values.length; j++) {
+						ints[j] = Integer.valueOf(values[j]);
+					}
+					obj = ints;
+				} else if (type == TypeEnum.FLOATS) {
+					String values[] = getString(buffer).split(
+							Constants.SEPARATOR);
+					float floats[] = new float[values.length];
+					for (int j = 0; j < values.length; j++) {
+						floats[j] = Float.valueOf(values[j]);
+					}
+					obj = floats;
+				} else if (type == TypeEnum.LONGS) {
+					String values[] = getString(buffer).split(
+							Constants.SEPARATOR);
+					long longs[] = new long[values.length];
+					for (int j = 0; j < values.length; j++) {
+						longs[j] = Long.valueOf(values[j]);
+					}
+					obj = longs;
+				} else if (type == TypeEnum.STRINGS) {
+					obj = getString(buffer).split(Constants.SEPARATOR);
+				} else if (type == TypeEnum.DOUBLES) {
+					String values[] = getString(buffer).split(
+							Constants.SEPARATOR);
+					double doubles[] = new double[values.length];
+					for (int j = 0; j < values.length; j++) {
+						doubles[j] = Double.valueOf(values[j]);
+					}
+					obj = doubles;
 				}
 				map.put(column, obj);
 			}
@@ -153,6 +188,14 @@ public class DBFile {
 
 	public List<String> getColumnNames() {
 		return columnNames;
+	}
+
+	public List<TypeEnum> getTypeEnums() {
+		return typeEnums;
+	}
+
+	public void setTypeEnums(List<TypeEnum> typeEnums) {
+		this.typeEnums = typeEnums;
 	}
 
 }

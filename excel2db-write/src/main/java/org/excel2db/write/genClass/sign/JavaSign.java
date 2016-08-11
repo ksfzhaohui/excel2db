@@ -29,9 +29,21 @@ public class JavaSign {
 			return "String ";
 		case DOUBLE:
 			return "double ";
+		case INTS:
+			return "int[] ";
+		case FLOATS:
+			return "float[] ";
+		case LONGS:
+			return "long[] ";
+		case STRINGS:
+			return "String[] ";
+		case DOUBLES:
+			return "double[] ";
 		default:
-			throw new RuntimeException("error type:" + type
-					+ " support:int,float,long,string,double");
+			throw new RuntimeException(
+					"error type:"
+							+ type
+							+ " support:int,float,long,string,double,ints,floats,longs,strings,doubles");
 		}
 	}
 }
