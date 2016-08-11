@@ -12,6 +12,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.excel2db.write.util.ConfigUtil;
 import org.excel2db.write.util.Constants;
 import org.excel2db.write.util.ExcelColumn;
 import org.excel2db.write.util.TypeEnum;
@@ -54,9 +55,17 @@ public class ExcelParse {
 		try {
 			book = WorkbookFactory.create(new FileInputStream(filePath));
 
+			String sheetStartWith = ConfigUtil.getSheetStartWith();
 			int sheetNum = book.getNumberOfSheets();
 			for (int num = 0; num < sheetNum; num++) {
 				Sheet sheet = book.getSheetAt(num);
+				String sheetName = sheet.getSheetName();
+
+				if (sheetStartWith != null && !sheetStartWith.equals("")
+						&& !sheetName.startsWith(sheetStartWith)) {
+					continue;
+				}
+
 				int rows = getRowNum(book, num);
 				int columns = getColumnNum(book, num);
 
@@ -64,7 +73,6 @@ public class ExcelParse {
 				List<TypeEnum> typeList = new ArrayList<TypeEnum>();
 				List<String> nameList = new ArrayList<String>();
 
-				String sheetName = sheet.getSheetName();
 				for (int column = 0; column < columns; column++) {
 					String type = getValue(sheet, column, TYPE_ROW);
 					TypeEnum typeEnum = TypeEnum.type(type);
