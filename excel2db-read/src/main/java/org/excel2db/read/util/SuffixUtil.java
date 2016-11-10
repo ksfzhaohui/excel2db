@@ -1,26 +1,22 @@
-package org.excel2db.write.util;
+package org.excel2db.read.util;
 
 import java.io.FileInputStream;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-public class ConfigUtil {
+public class SuffixUtil {
 
-	private final static Logger logger = Logger.getLogger(ConfigUtil.class);
+	private final static Logger logger = Logger.getLogger(SuffixUtil.class);
 
 	private static Properties prop = new Properties();
 
 	static {
 		try {
-			prop.load(new FileInputStream("config.properties"));
+			prop.load(new FileInputStream("suffix.properties"));
 		} catch (Exception e) {
 			logger.error("", e);
 		}
-	}
-
-	public static String getSheetStartWith() {
-		return prop.getProperty("sheetStartWith");
 	}
 
 	public static String getFileSuffix() {

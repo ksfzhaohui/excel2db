@@ -20,7 +20,7 @@ public class ArrayTestDataManager extends NdbDataManager<ArrayTestData> {
 
 	@Override
 	public String getNdbName() {
-		return "arrayTest";
+		return "P_arrayTest";
 	}
 
 	@Override

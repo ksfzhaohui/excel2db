@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.excel2db.read.util.BeanUtil;
+import org.excel2db.read.util.SuffixUtil;
 
 /**
  * ndb管理抽象类
@@ -26,7 +27,8 @@ public abstract class NdbDataManager<T> {
 
 	public void init() {
 		dbFile = new DBFile();
-		dbFile.init(ndbFilePath + File.separator + getNdbName() + ".ndb");
+		dbFile.init(ndbFilePath + File.separator + getNdbName()
+				+ SuffixUtil.getFileSuffix());
 
 		List<Map<String, Object>> dataMap = dbFile.getDataMap();
 		for (Map<String, Object> map : dataMap) {

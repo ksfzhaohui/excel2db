@@ -8,6 +8,7 @@ import org.excel2db.write.genClass.Config;
 import org.excel2db.write.manager.ExcelParse;
 import org.excel2db.write.manager.GeneratorBeanClass;
 import org.excel2db.write.manager.NDBGenerator;
+import org.excel2db.write.util.ConfigUtil;
 import org.excel2db.write.util.EndfixEnum;
 import org.excel2db.write.util.FileUtil;
 
@@ -32,7 +33,7 @@ public class WriteMain {
 		logger.info("fileList:" + fileList);
 
 		FileUtil.deleteAllFilesOfDir(new File(config.getNdbPath()),
-				NDBGenerator.FILE_SUFFIX);
+				ConfigUtil.getFileSuffix());
 		FileUtil.deleteAllFilesOfDir(new File(config.getBeanRoot()),
 				EndfixEnum.endfix(config.getLanguage()));
 

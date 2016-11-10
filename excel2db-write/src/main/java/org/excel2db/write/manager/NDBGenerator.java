@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.excel2db.write.util.ConfigUtil;
 import org.excel2db.write.util.TypeEnum;
 
 /**
@@ -24,8 +25,6 @@ public class NDBGenerator {
 
 	private final static Logger logger = Logger.getLogger(NDBGenerator.class);
 
-	/** 生成的二进制文件后缀 **/
-	public static final String FILE_SUFFIX = ".ndb";
 	/** 字符串编码格式 **/
 	private static final String STRING_ENCODING = "UTF-8";
 
@@ -71,8 +70,8 @@ public class NDBGenerator {
 					ndbPath.mkdirs();
 				}
 
-				fc = new FileOutputStream(path + key + FILE_SUFFIX)
-						.getChannel();
+				fc = new FileOutputStream(path + key
+						+ ConfigUtil.getFileSuffix()).getChannel();
 
 				headerBuffer.flip();
 				columnNameBuffer.flip();
