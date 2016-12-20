@@ -55,14 +55,13 @@ public class ExcelParse {
 		try {
 			book = WorkbookFactory.create(new FileInputStream(filePath));
 
-			String sheetStartWith = ConfigUtil.getSheetStartWith();
+			List<String> sheetStartWithList = ConfigUtil.getSheetStartWith();
 			int sheetNum = book.getNumberOfSheets();
 			for (int num = 0; num < sheetNum; num++) {
 				Sheet sheet = book.getSheetAt(num);
 				String sheetName = sheet.getSheetName();
 
-				if (sheetStartWith != null && !sheetStartWith.equals("")
-						&& !sheetName.startsWith(sheetStartWith)) {
+				if (!isStartWith(sheetStartWithList, sheetName)) {
 					continue;
 				}
 
@@ -123,6 +122,16 @@ public class ExcelParse {
 		} catch (Exception e) {
 			logger.error("readExcel error", e);
 		}
+	}
+
+	private boolean isStartWith(List<String> sheetStartWithList,
+			String sheetName) {
+		for (String sw : sheetStartWithList) {
+			if (sheetName.startsWith(sw)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	/**
